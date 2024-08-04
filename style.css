@@ -2,6 +2,14 @@
     font-family: Arial, Helvetica, sans-serif;
     /* background-color: pink; */
 }
+
+body {
+    background-image: url(todoList.jpeg);
+    background-position: center;
+    background-size: cover;
+    /* background-repeat: no-repeat; */
+}
+
 section{
     padding: 10px;
     display: grid;
