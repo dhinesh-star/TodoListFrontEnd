@@ -44,6 +44,7 @@ body{
     border: none;
     outline: none;
     font-size: 16px;
+    color: white;
 }
 
 .username-box, .password-box{
@@ -104,11 +105,36 @@ body{
 .register-link a:hover{
     text-decoration: underline;
 }
-/* .input-box i{
+
+.overlay{
+    display: none;
     position: absolute;
-    right: 20px;
-    top: 50%;
-    transform: translateY(-50%);
-    font-size: 20px ;
-    color: #fff;
-} */
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255,255,255,0.5);
+    /* display: flex; */
+    justify-content:center;
+    align-items:center;
+    flex-direction: column;
+    color: red;
+    font-weight: bold;
+    font-size: 25px;
+}
+
+.spinLoading{
+    display: none;
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    border-top: 5px solid blue;
+    animation: spin 5s linear infinite ;
+}
+
+@keyframes spin {
+    0%{
+        transform: rotate(0deg);
+    }
+    100%{
+        transform: rotate(3600deg);
+    }
+}

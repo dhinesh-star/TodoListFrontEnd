@@ -27,17 +27,22 @@
         </div>
         <button id="loginBtn"> Login </button>
         <div class="register-link">
-            <p>Don't have account? <a href="#"> Register</a> </p>
+            <p>Don't have account? <a href="signin.html"> Register</a> </p>
         </div>
     </div>
-    
+    <div class="overlay" id="overlay">
+        <div class="spinLoading" id="spinLoading"></div>
+        <p> Loading takes time 1 to 2 mins since the application is backend hosted for free</p>
+    </div>
     <script>
         const loginButton = document.getElementById("loginBtn");
-        const hostName = "localhost";
+        // const hostName = "localhost";
+        const hostName = "todolistapi-1c8b.onrender.com";
         
 
         function frameAPI(hostName, endpoint, params = {}) {
-            let url = `http://${hostName}:8080/user/${endpoint}`;
+            // let url = `http://${hostName}:8080/user/${endpoint}`;
+            let url = `https://${hostName}/user/${endpoint}`;
             if (Object.keys(params).length !== 0) {
                 url += '?';
                 for (let key in params) {
@@ -52,6 +57,12 @@
 
         async function performAPICall(method, url, payload = {}) {
             try {
+                let overlayDiv = document.getElementById("overlay");
+                overlayDiv.style.display = "flex";
+
+                let spinLoading = document.getElementById("spinLoading");
+                spinLoading.style.display = "block";
+
                 let response;
                 if (method === "GET") {
                     response = await fetch(url);
@@ -79,8 +90,12 @@
                 const password = document.getElementById("password").value;
                 const loginAPI = frameAPI(hostName, "authenicate", {"username": username, "password": password});
                 let response = await performAPICall("GET", loginAPI, {});
+                console.log(response);
                 let msg = response['message'] || "";
-                if(msg=="Authenicated User") window.location.href = "index.html";
+                if(msg=="Authenicated User"){ 
+                    window.location.href = "index.html";
+                    localStorage.setItem("username",username);
+                }
                 
             })()
         }

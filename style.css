@@ -1,13 +1,5 @@
 *{
     font-family: Arial, Helvetica, sans-serif;
-    /* background-color: pink; */
-}
-
-body {
-    background-image: url(todoList.jpeg);
-    background-position: center;
-    background-size: cover;
-    /* background-repeat: no-repeat; */
 }
 
 section{
@@ -114,21 +106,6 @@ footer{
     flex-direction: row;
 }
 
-.overlayClass{
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 1000;
-    background-color: rgba(0, 0, 0, 0.5);
-    justify-content: center;
-    align-items: center;
-    overflow: auto;
-    /* display: flex; */
-}
-
 .alertMessageClass{
     background: white;
     padding: 20px;
@@ -144,7 +121,7 @@ footer{
     width: 200px;
     height: 200px;
     border-radius: 50%;
-    border-top: 2px solid blue;
+    border-top: 5px solid blue;
     z-index: 1001;
     animation: spin 2s linear infinite;
 }
