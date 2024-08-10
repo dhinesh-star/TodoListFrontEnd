@@ -1,10 +1,15 @@
 const todoContainer = document.getElementById("todo");
 const inProgessContainer= document.getElementById("in-progess");
 const doneContainer = document.getElementById("done");
-const hostName = "todolist-s7ls.onrender.com";
-const addNewTaskAPI = frameAPI(hostName,"add");
-const getAllTasksAPI = frameAPI(hostName,"getAllTask");
-const expiredTaskAPI = frameAPI(hostName,"getTimeExceedTasks");
+const username = localStorage.getItem("username");
+const hostName = "todolistapi-1c8b.onrender.com";
+// const hostName = "localhost";
+const addNewTaskAPI = frameAPI(hostName, "add", {"username" : username});
+const getAllTasksAPI = frameAPI(hostName, "getAllTask", {"username" : username});
+const expiredTaskAPI = frameAPI(hostName, "getTimeExceedTasks", {"username" : username});
+
+const heading = document.getElementById("heading");
+heading.innerText  = `Welcome ${username}`;
 
 let nextDate = new Date();
 nextDate.setDate(nextDate.getDate()+1);
@@ -283,6 +288,7 @@ function footerSection(entireItem){
 
 function frameAPI(hostName, endpoint, params = {}) {
     let url = `https://${hostName}/task/${endpoint}`;
+    // let url = `http://${hostName}:8080/task/${endpoint}`;
     if (Object.keys(params).length !== 0) {
         url += '?';
         for (let key in params) {
@@ -382,7 +388,7 @@ function calculateTheDaysCrossed(taskActualEpochTime){
     let currentEpochTime = Date.now();
     currentEpochTime = currentEpochTime/1000;
     console.log("currentEpochTime : ",currentEpochTime);
-    let daysCrossedTheDueDate = Math.floor((currentEpochTime-taskActualEpochTime)/86400);
+    let daysCrossedTheDueDate = Math.ceil((currentEpochTime-taskActualEpochTime)/86400);
     return daysCrossedTheDueDate;
 }
 
