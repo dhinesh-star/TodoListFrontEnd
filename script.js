@@ -87,6 +87,11 @@ function getheadingAndPriorityDiv(heading, priority, taskId){
 
     let buttonDiv = document.createElement("button");
     buttonDiv.textContent = priority;
+    buttonDiv.style.cssText = `
+        // display : none;
+        border : none;
+        border-radius : 20px;
+    `
     buttonDiv.style.backgroundColor = taskColorMap[priority];
     buttonDiv.addEventListener("click", (eventListener) =>{
         let currentPriority = eventListener.target.innerText;
@@ -449,5 +454,5 @@ window.onload = getDetailsFromBackEnd()
 let addNewEvent = document.getElementsByClassName("addNewEventCSS")[0];
 addNewEvent.addEventListener("click", addNewEventFunction);
 
-// setInterval(frameAlertMessage,10000)
-setInterval(frameAlertMessage, 3600000)
+setInterval(frameAlertMessage,10000)
+// setInterval(frameAlertMessage, 3600000)

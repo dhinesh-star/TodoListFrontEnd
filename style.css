@@ -2,6 +2,14 @@
     font-family: Arial, Helvetica, sans-serif;
 }
 
+body{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background-color: #f4f7f6;
+}
+
 section{
     padding: 10px;
     display: grid;
@@ -19,9 +27,12 @@ section{
 
 .generalClass{
     border: 1px solid black;
+    background-color: white;
     text-align: center;
     padding: 10px;
     margin: 10px;
+    border-radius: 20px;
+    box-shadow: 0 0 10px lightblue;
     /* width: 300px; To be commented */
 }
 
@@ -31,6 +42,7 @@ section{
     align-items: center;
     justify-content: space-around;
     width: 300px;
+    border-radius: 20px ;
     height: auto;
 }
 
@@ -44,11 +56,14 @@ section{
 
 .slider {
     height: 6px;
-    width: 100%
+    width: 100%;
 }
 
 .dateTimeToBeCompleted{
     height: 50px;
+    border-radius: 20px;
+    border: 2px solid black;
+    padding: 5px;
 }
 
 .dateTimeToBeCompletedDiv{
@@ -74,6 +89,7 @@ section{
     width: 100px;
     height: 30px;
     color: #e3e3e3;
+    border-radius: 20px ;
 }
 
 .addNewEventCSS{
@@ -84,6 +100,14 @@ section{
     font-weight: bold;
     color: white;
     height: 20px;
+    border-radius: 20px ;
+    border: none;
+}
+
+.addNewEventCSS:hover{
+    background-color: rgba(255, 255, 255, 0.3);
+    box-shadow: 0 0 10px lightblue;
+    color: black;
 }
 
 footer{
