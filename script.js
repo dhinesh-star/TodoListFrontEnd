@@ -454,5 +454,5 @@ window.onload = getDetailsFromBackEnd()
 let addNewEvent = document.getElementsByClassName("addNewEventCSS")[0];
 addNewEvent.addEventListener("click", addNewEventFunction);
 
-setInterval(frameAlertMessage,10000)
-// setInterval(frameAlertMessage, 3600000)
+// setInterval(frameAlertMessage,10000)
+setInterval(frameAlertMessage, 3600000)
