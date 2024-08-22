@@ -138,3 +138,9 @@ body{
         transform: rotate(3600deg);
     }
 }
+
+@media screen and  (max-width: 600px){
+    .wrapper{
+        width: 280px;
+    }
+}
