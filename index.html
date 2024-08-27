@@ -91,12 +91,13 @@
             }
         }
 
-        function displayErrorMessage(){
+        function displayErrorMessage(msg){
             const wrapperDiv = document.getElementById('wrapper');
 
             let createDiv = document.createElement("div");
             let paraTag = document.createElement("p");
-            paraTag.innerText = "User Not found! Try again after login";
+            if (msg.trim() === "") paraTag.innerText = "User Not found! Try again after login";
+            else paraTag.innerText = msg;
 
             paraTag.style.color = "red";
             paraTag.style.textAlign = "center";
@@ -117,7 +118,7 @@
                     localStorage.setItem("username",username);
                     window.location.href = "main.html";
                 }
-                displayErrorMessage();
+                else displayErrorMessage(msg);
             })()
         }
         loginButton.addEventListener("click", authenicateUser);
