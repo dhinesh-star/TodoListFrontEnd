@@ -2,8 +2,8 @@ const todoContainer = document.getElementById("todo");
 const inProgessContainer= document.getElementById("in-progess");
 const doneContainer = document.getElementById("done");
 const username = localStorage.getItem("username");
-const hostName = "todolistapi-1c8b.onrender.com";
 // const hostName = "localhost";
+const hostName = "todolist-igcg.onrender.com";
 const addNewTaskAPI = frameAPI(hostName, "add", {"username" : username});
 const getAllTasksAPI = frameAPI(hostName, "getAllTask", {"username" : username});
 const expiredTaskAPI = frameAPI(hostName, "getTimeExceedTasks", {"username" : username});
@@ -14,6 +14,9 @@ heading.innerText  = `Welcome ${username}`;
 let nextDate = new Date();
 nextDate.setDate(nextDate.getDate()+1);
 let formattedDate = nextDate.toISOString().split('T')[0];
+
+//Authorization Token
+let jwt_token = "Bearer "+localStorage.getItem("jwt_token")
 
 
 const taskItem = {
@@ -311,14 +314,21 @@ async function performAPICall(method, url, payload = {}) {
         openLoading();
         let response;
         if (method === "GET") {
-            response = await fetch(url);
+            response = await fetch(url, {
+                method: "GET",
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': jwt_token
+                }
+            });
             let responseFromDB = await response.json();
             return responseFromDB;
         } else if (method === "POST") {
             response = await fetch(url, {
                 method: "POST",
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    'Authorization': jwt_token
                 },
                 body: JSON.stringify(payload)
             });
@@ -348,7 +358,7 @@ function closeLoading() {
 }
 
 function getDetailsFromBackEnd(){
-    let responseFromDB 
+    let responseFromDB =
     (async () => {
         responseFromDB = await performAPICall("GET", getAllTasksAPI);
         responseFromDB = responseFromDB["taskList"];

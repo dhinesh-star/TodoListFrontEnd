@@ -1,12 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
     <link rel="stylesheet" href="style1.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+        integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
+
 <body>
     <div class="wrapper" id="wrapper">
         <h1>Login</h1>
@@ -37,8 +41,7 @@
     <script>
         const loginButton = document.getElementById("loginBtn");
         // const hostName = "localhost";
-        const hostName = "todolistapi-1c8b.onrender.com";
-        
+        const hostName = "todolist-igcg.onrender.com";
 
         function frameAPI(hostName, endpoint, params = {}) {
             // let url = `http://${hostName}:8080/user/${endpoint}`;
@@ -82,7 +85,7 @@
             } catch (error) {
                 console.error(`${method} request error:`, error);
             }
-            finally{
+            finally {
                 let overlayElement = document.getElementById("overlay");
                 overlayElement.style.display = "none";
 
@@ -91,7 +94,7 @@
             }
         }
 
-        function displayErrorMessage(msg){
+        function displayErrorMessage(msg) {
             const wrapperDiv = document.getElementById('wrapper');
 
             let createDiv = document.createElement("div");
@@ -105,23 +108,33 @@
             createDiv.appendChild(paraTag);
             wrapperDiv.prepend(createDiv);
         }
-        
-        function authenicateUser(){
-            (async () => {
-                const username = document.getElementById("user").value;
-                const password = document.getElementById("password").value;
-                const loginAPI = frameAPI(hostName, "authenicate", {"username": username, "password": password});
-                let response = await performAPICall("GET", loginAPI, {});
-                console.log(response);
-                let msg = response['message'] || "";
-                if(msg=="Authenicated User"){ 
-                    localStorage.setItem("username",username);
+
+        async function authenicateUser() {
+            const username = document.getElementById("user").value;
+            const password = document.getElementById("password").value;
+            // const loginAPI = frameAPI(hostName, "login", { "username": username, "password": password });
+            const loginAPI = frameAPI(hostName, "login");
+            let response = await performAPICall("POST", loginAPI, { "username": username, "password": password });
+            console.log(response);
+            let msg = response['errorMsg'] || "";
+            // if (msg == "Authenicated User") {
+            //     localStorage.setItem("username", username);
+            //     window.location.href = "main.html";
+            // }
+            if (msg != "") displayErrorMessage(msg);
+            else{
+                let token = response['token'] || "";
+                console.log("token >> ", token);
+                if (token != "") {
+                    localStorage.setItem("username", username);
+                    localStorage.setItem("jwt_token", token);
                     window.location.href = "main.html";
                 }
-                else displayErrorMessage(msg);
-            })()
+                else displayErrorMessage("Unknown error occured");
+            }
         }
         loginButton.addEventListener("click", authenicateUser);
     </script>
 </body>
+
 </html>
