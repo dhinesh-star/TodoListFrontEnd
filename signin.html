@@ -71,7 +71,11 @@
             const username = document.getElementById("username").value;
             const originalPassword = document.getElementById("originalPassword").value;
             const confirmPassword = document.getElementById("confirmPassword").value;
-            if(originalPassword == confirmPassword){
+            if(emailId == "" || username == "" || originalPassword == "" || confirmPassword == "" ){
+                errorMsg = "Enter the missing / empty fields";
+                displayErrorDiv(errorMsg, "red");
+            }
+            else if(originalPassword == confirmPassword){
                 let payload = {
                     "emailId" : emailId,
                     "userName" : username,
@@ -91,12 +95,14 @@
                             body: JSON.stringify(payload)
                         });
                         response = await response.json();
-                        response = response['message'];
-                        if(response == "New User Added Successfully"){
-                            displayErrorDiv(response, "green");
+                        console.log("response>> ", response);
+                        // response = response['message'];
+                        if(response['message'] == "New User Added Successfully"){
+                            displayErrorDiv(response['message'], "green");
                         }
                         else{
-                            displayErrorDiv(response, "red");
+                            errorMsg = response['errorMsg'] || "Unknown error occured please try later";
+                            displayErrorDiv(errorMsg, "red");
                         }
                     } catch (error) {
                         console.error(`Post request error:`, error);
